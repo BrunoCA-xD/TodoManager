@@ -6,13 +6,22 @@
 //
 
 import Foundation
+import Combine
 
 class TodoListViewModel: ObservableObject {
-    @Published var todoList: [TodoItem]
+    @Published var todoCellViewModels =  [TodoCellViewModel]()
+    private var cancellables = Set<AnyCancellable>()
     
-    init(todoList: [TodoItem] = []) {
-        self.todoList = todoList
+    
+    func addTodo(_ todo: TodoItem) {
+        todoCellViewModels.append(TodoCellViewModel(todo: todo))
     }
 }
 
-let testStorage = TodoListViewModel(todoList: testData)
+let testStorage: TodoListViewModel = {
+    let test = TodoListViewModel()
+    test.todoCellViewModels = testData.map({ todo in
+        TodoCellViewModel(todo: todo)
+    })
+    return test
+}()

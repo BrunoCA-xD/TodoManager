@@ -8,24 +8,26 @@
 import SwiftUI
 
 struct TodoCellView: View {
-    var todoItem: TodoItem
+    @ObservedObject var todoModel: TodoCellViewModel
+    
+    var onCommit: (TodoItem) -> (Void) = {_ in }
     var body: some View {
-        NavigationLink(destination: Text("Destination")) {
-            HStack{
-                Text(todoItem.title)
-                Spacer()
-                if todoItem.isDone {
-                    Image(systemName: "checkmark.circle")
+        HStack{
+            Image(systemName: todoModel.completionStateIconName)
+                .onTapGesture {
+                    self.todoModel.todo.isDone.toggle()
                 }
-            }
+            TextField("Title", text: $todoModel.todo.title, onCommit: {
+                self.onCommit(self.todoModel.todo)
+            })
         }
     }
 }
-
-struct TodoCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodoCellView(todoItem: TodoItem(title: "Todo Item", isDone: true))
-            .preferredColorScheme(.dark)
-            .previewLayout(.sizeThatFits)
+    
+    struct TodoCellView_Previews: PreviewProvider {
+        static var previews: some View {
+            TodoCellView(todoModel: TodoCellViewModel(todo: TodoItem(title: "Todo Item", isDone: true)))
+                .preferredColorScheme(.dark)
+                .previewLayout(.sizeThatFits)
+        }
     }
-}

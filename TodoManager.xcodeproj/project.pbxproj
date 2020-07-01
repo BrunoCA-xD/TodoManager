@@ -18,6 +18,7 @@
 		56F55FC324ABDA82002C1796 /* AddTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F55FC124ABDA82002C1796 /* AddTodoView.swift */; };
 		56F55FC524ABDAA1002C1796 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F55FC424ABDAA1002C1796 /* TodoItem.swift */; };
 		56F55FC724ABDAC5002C1796 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F55FC624ABDAC5002C1796 /* TodoListViewModel.swift */; };
+		56F55FC924ABDBE9002C1796 /* TodoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F55FC824ABDBE9002C1796 /* TodoCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		56F55FC124ABDA82002C1796 /* AddTodoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTodoView.swift; sourceTree = "<group>"; };
 		56F55FC424ABDAA1002C1796 /* TodoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		56F55FC624ABDAC5002C1796 /* TodoListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
+		56F55FC824ABDBE9002C1796 /* TodoCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 		56F55FBC24ABD9BA002C1796 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				56F55FC824ABDBE9002C1796 /* TodoCellViewModel.swift */,
 				56F55FC624ABDAC5002C1796 /* TodoListViewModel.swift */,
 			);
 			path = ViewModel;
@@ -343,6 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56F55FC924ABDBE9002C1796 /* TodoCellViewModel.swift in Sources */,
 				56F55FC524ABDAA1002C1796 /* TodoItem.swift in Sources */,
 				56F55FBF24ABD9FC002C1796 /* TodoList.swift in Sources */,
 				56F55FC224ABDA82002C1796 /* TodoCellView.swift in Sources */,

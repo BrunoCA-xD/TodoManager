@@ -8,23 +8,40 @@
 import SwiftUI
 
 struct TodoList: View {
-    @ObservedObject var store: TodoListViewModel
+    @ObservedObject var todoListVM: TodoListViewModel
+    @State var presentAddNewItem = false
     
     var body: some View {
         NavigationView{
-            List {
-                ForEach(store.todoList) { item in
-                    TodoCellView(todoItem: item)
+            VStack(alignment: .leading){
+                List {
+                    ForEach(todoListVM.todoCellViewModels) { item in
+                        TodoCellView(todoModel: item)
+                    }
+                    .onMove(perform: moveTodos(from:to:))
+                    .onDelete(perform: deleteTodos(offsets:))
+                    if presentAddNewItem {
+                        TodoCellView(todoModel: TodoCellViewModel(todo: TodoItem(title: "", isDone: false))) { todo in
+                            todoListVM.addTodo(todo)
+                            presentAddNewItem = !presentAddNewItem
+                        }
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        Text("\(todoListVM.todoCellViewModels.count) To-do's")
+                            .foregroundColor(.secondary)
+                        Spacer()
+                    }
                 }
-                .onMove(perform: moveTodos(from:to:))
-                .onDelete(perform: deleteTodos(offsets:))
-                HStack {
-                    Spacer()
-                    Text("\(store.todoList.count) To-do's")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                }
-                
+                Button(action: {presentAddNewItem = !presentAddNewItem}, label: {
+                    HStack {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.title)
+                        Text("Add new to-do")
+                    }
+                })
+                .padding(.leading)
             }
             .navigationTitle("To-do's")
             .navigationBarItems(leading: HStack {
@@ -34,40 +51,40 @@ struct TodoList: View {
                         Text("+")
                             .font(.largeTitle)
                     })
-
+                
             }, trailing: HStack {
                 #if os(iOS)
-                    #if DEBUG
-                    Button("Add mock", action: makeTodo)
-                    #endif
+                #if DEBUG
+                Button("Add mock", action: makeTodo)
+                #endif
                 EditButton()
                 #endif
-
+                
             })
         }
     }
     
     func makeTodo() {
         withAnimation {
-            store.todoList.append(TodoItem(title: "New one", isDone: false))
+            todoListVM.todoCellViewModels.append(TodoCellViewModel(todo: TodoItem(title: "New one", isDone: false)))
         }
     }
     func moveTodos(from: IndexSet, to: Int) {
         withAnimation {
-            store.todoList.move(fromOffsets: from, toOffset: to)
+            todoListVM.todoCellViewModels.move(fromOffsets: from, toOffset: to)
         }
     }
     
     func deleteTodos(offsets: IndexSet) {
         withAnimation {
-            store.todoList.remove(atOffsets: offsets)
+            todoListVM.todoCellViewModels.remove(atOffsets: offsets)
         }
     }
 }
 
 struct TodoList_Previews: PreviewProvider {
     static var previews: some View {
-        TodoList(store: testStorage)
-        .preferredColorScheme(.dark)
+        TodoList(todoListVM: testStorage)
+            .preferredColorScheme(.dark)
     }
 }

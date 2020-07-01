@@ -11,6 +11,7 @@ import SwiftUI
 struct TodoManagerApp: App {
     var body: some Scene {
         WindowGroup {
+            TodoList(todoListVM: TodoListViewModel())
         }
     }
 }
