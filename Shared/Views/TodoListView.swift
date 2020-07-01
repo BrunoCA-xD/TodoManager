@@ -73,7 +73,7 @@ struct TodoListView: View {
     }
 }
 
-struct TodoList_Previews: PreviewProvider {
+struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
         TodoListView(todoListVM: testStorage)
             .preferredColorScheme(.dark)
